@@ -10,6 +10,8 @@ const client = new ApolloClient({
   uri: 'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql'
 });
 
+const TICK_RATE = 1000*60;
+
 class App extends React.Component{
   constructor(props) {
     super(props)
@@ -35,7 +37,7 @@ class App extends React.Component{
     this.setLocation();
     this.timerID = setInterval(() => {
       this.tick()
-    },1000*60);
+    },TICK_RATE);
   }
   
   componentWillUnmount(){
@@ -101,7 +103,7 @@ class App extends React.Component{
           to={l2}
         />
         <Timetable 
-          title={`From ${this.state.location1.name} to ${this.state.location2.name}`}
+          title={`From ${this.state.location2.name} to ${this.state.location1.name}`}
           from={l2} 
           to={l1}
         />
