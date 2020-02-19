@@ -92,13 +92,13 @@ class App extends React.Component{
 
     let l1 = this.parseObjectToString(this.state.location1);
     let l2 = this.parseObjectToString(this.state.location2);
-
+    console.log(l1, l2)
     return (
       <div>
         <Clock time={dt}/>
         <ApolloProvider client={client}>
-          <div className="uk-container">
-            <div className="uk-flex uk-child-width-expand@s" uk-grid>
+          <div className="uk-padding uk-background-muted uk-container">
+            <div className="uk-flex" uk-grid="true">
               <Timetable
                 from={l1} 
                 to={l2}
