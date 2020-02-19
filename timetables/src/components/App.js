@@ -3,6 +3,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import axios from 'axios';
 
+import LocationForm from './LocationForm';
 import Clock from './Clock';
 import Timetable from './Timetable';
 
@@ -33,8 +34,13 @@ class App extends React.Component{
     }
   }
 
+  // changeLocations = (a,b) => {
+  //   this.setLocation(a,b);
+  // }
+
   componentDidMount(){
-    this.setLocation();
+    console.log('MOUNTING COMPONENT')
+    this.setLocation(this.state.location1.name,this.state.location2.name);
     this.timerID = setInterval(() => {
       this.tick()
     },TICK_RATE);
@@ -60,9 +66,9 @@ class App extends React.Component{
     return false;
   }
 
-  async setLocation(){
-    let l1 = await this.getCoordinates(this.state.location1);
-    let l2 = await this.getCoordinates(this.state.location2);
+  setLocation = async (a,b) => {
+    let l1 = await this.getCoordinates(a);
+    let l2 = await this.getCoordinates(b);
     this.setState({
       time: new Date(),
       location1: l1,
@@ -73,8 +79,9 @@ class App extends React.Component{
 
   getCoordinates(location){
     return axios.get(
-      `https:api.digitransit.fi/geocoding/v1/search?text=${location.name}&size=1`)
+      `https:api.digitransit.fi/geocoding/v1/search?text=${location}&size=1`)
       .then(res => {
+        console.log(res.data.features[0].properties.name);
         return {
           name: res.data.features[0].properties.name,
           lon: res.data.features[0].geometry.coordinates[0],
@@ -89,26 +96,29 @@ class App extends React.Component{
 
   render() {
     let dt = this.state.time;
-
     let l1 = this.parseObjectToString(this.state.location1);
     let l2 = this.parseObjectToString(this.state.location2);
     console.log(l1, l2)
+    console.log(this.state.location1, this.state.location2)
     return (
       <div>
         <Clock time={dt}/>
+        <LocationForm
+          changeLocation={this.setLocation}
+        />
         <ApolloProvider client={client}>
           <div className="uk-padding uk-background-muted uk-container">
-            <div className="uk-flex" uk-grid="true">
+            <div
+              className="uk-flex" 
+              uk-grid="true"
+              uk-height-match="target:.uk-card;row: false"
+            >
               <Timetable
                 from={l1} 
                 to={l2}
               />
-              
               <Timetable 
-                /* title={ */
-                /*   `From ${this.state.location2.name} &#8594 ${this.state.location1.name}` */
-                /* } */
-                from={l2} 
+                from={l2}
                 to={l1}
               />
             </div>
