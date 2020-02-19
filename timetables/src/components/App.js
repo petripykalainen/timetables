@@ -95,19 +95,25 @@ class App extends React.Component{
 
     return (
       <div>
-      <Clock time={dt}/>
-      <ApolloProvider client={client}>
-        <Timetable
-          title={`From ${this.state.location1.name} to ${this.state.location2.name}`}
-          from={l1} 
-          to={l2}
-        />
-        <Timetable 
-          title={`From ${this.state.location2.name} to ${this.state.location1.name}`}
-          from={l2} 
-          to={l1}
-        />
-      </ApolloProvider>
+        <Clock time={dt}/>
+        <ApolloProvider client={client}>
+          <div className="uk-container">
+            <div className="uk-flex uk-child-width-expand@s" uk-grid>
+              <Timetable
+                from={l1} 
+                to={l2}
+              />
+              
+              <Timetable 
+                /* title={ */
+                /*   `From ${this.state.location2.name} &#8594 ${this.state.location1.name}` */
+                /* } */
+                from={l2} 
+                to={l1}
+              />
+            </div>
+          </div>
+        </ApolloProvider>
       </div>
       
     );
