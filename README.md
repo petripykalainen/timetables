@@ -13,5 +13,5 @@ Powered by Helsinki Regional Transport (HSL) [open data interface](https://www.h
 - [x] Docker contained
 ## Also
 - [x] React
-- [x] [UIkit](https://getuikit.com/).
+- [x] Styled with [UIkit](https://getuikit.com/).
 - [x] Eslint courtesy of create react app.

@@ -14,14 +14,6 @@ const renderTimetable = (itineraries) => {
       <li key={route.startTime}>
         <div className=" uk-card uk-card-body uk-card-default">
           <h1 className="uk-card-title">Route {counter}</h1>
-          {/* <p>Departs at: &#8194; */}
-          {/*   {addLeadingZeroes(new Date(route.startTime).getHours())}: */}
-          {/*   {addLeadingZeroes(new Date(route.startTime).getMinutes())} <br/> */}
-          {/*   From stop: &#8194; */}
-          {/*   {route.legs[1].from.stop.code},  */}
-          {/*   {route.legs[1].from.stop.name} */}
-          {/* </p> */}
-          {/* <h1 className="uk-card-title">Steps:</h1> */}
           <div>
             {
               route.legs.map((step) => {
@@ -61,7 +53,7 @@ export default function Timetable({from, to}){
     ROUTE_QUERY,
     {
       variables: {from, to},
-      pollInterval: 1000*60
+      pollInterval: 1000*60,
     }
   );
   
