@@ -9,7 +9,7 @@ Powered by Helsinki Regional Transport (HSL) [open data interface](https://www.h
 ### Featuring
 - [x] Using HSL open data interface.
 - [x] graphql query language
-- [ ] Deployed on Digital Ocean [here]().
+- [ ] Deployed on Digital Ocean [here](http://46.101.169.92/).
 - [x] Docker contained
 ## Also
 - [x] React
