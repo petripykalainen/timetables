@@ -17,11 +17,14 @@ const renderTimetable = (itineraries) => {
           <div>
             {
               route.legs.map((step) => {
-                let from, to;
+                let from;
+                let to;
+
                 if (!step.route) {
-                  from = step.from.name
-                  to = step.to.name
+                  from = step.from.name;
+                  to = step.to.name;
                 }
+
                 else {
                   from = `stop ${step.from.stop.code}, ${step.from.stop.name}`;
                   to = `stop ${step.to.stop.code}, ${step.to.stop.name}`;
@@ -36,17 +39,18 @@ const renderTimetable = (itineraries) => {
                       {addLeadingZeroes(new Date(step.endTime).getHours())}
                       :{addLeadingZeroes(new Date(step.endTime).getMinutes())}
                       <br/>
-                      {step.mode}{step.route ? ": " + step.route.shortName : ''} <br/>{from} &#8594; {to}</p>
+                      {step.mode}{step.route ? ': ' + step.route.shortName : ''}
+                      <br/> {from} &#8594; {to}</p>
                   </div>
-                )
+                );
               })
             }
           </div>
-        </div>  
+        </div>
       </li>
-    )
-  })
-}
+    );
+  });
+};
 
 export default function Timetable({from, to}){
   const {loading, error, data} = useQuery(
@@ -56,7 +60,7 @@ export default function Timetable({from, to}){
       pollInterval: 1000*60,
     }
   );
-  
+
   if (loading) {
     return (
       <div className="uk-width-1-2">
@@ -68,14 +72,14 @@ export default function Timetable({from, to}){
   if (error) {
     return <h1>Error! {error}</h1>;
   }
-  
+
   if (data.plan.itineraries.length === 0) {
     return (
       <div className="uk-width-1-2">
         <h3>No routes found</h3>
       </div>
     );
-  }  
+  }
 
   return (
     <div className="uk-width-1-2">

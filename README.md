@@ -14,4 +14,4 @@ Powered by Helsinki Regional Transport (HSL) [open data interface](https://www.h
 ## Also
 - [x] React
 - [x] Styled with [UIkit](https://getuikit.com/).
-- [x] Eslint courtesy of create react app.
+- [x] Eslint 
