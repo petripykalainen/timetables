@@ -10,7 +10,6 @@ const renderTimetable = (itineraries) => {
   return itineraries.map((route) => {
     counter++;
     return (
-      // <li>
       <li key={route.startTime}>
         <div className=" uk-card uk-card-body uk-card-default">
           <h1 className="uk-card-title">Route {counter}</h1>

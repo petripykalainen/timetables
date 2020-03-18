@@ -30,7 +30,7 @@ class LocationForm extends React.Component {
                     value={this.state.location1}
                     onChange={e => this.setState({location1: e.target.value})}
                   />
-                  <input 
+                  <input
                     className="uk-input" 
                     type="text" 
                     placeholder="Location 2"
