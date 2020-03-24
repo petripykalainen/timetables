@@ -42,7 +42,7 @@ class LocationForm extends React.Component {
               <input
                 className="uk-width-1-1 uk-button-primary uk-button uk-button-default"
                 type="submit" 
-                value="Submit"
+                value="Search"
               />
             </form>
       </div>

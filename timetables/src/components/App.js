@@ -18,14 +18,14 @@ class App extends React.Component{
     this.state = {
       time: new Date(),
       location1: {
-        name: "Pohjoinen Rautatiekatu 25", 
+        name: "",
         coordinates:{
-          lon: null, 
+          lon: null,
           lat: null
         }
       },
       location2: {
-        name: "Kauppakeskus Sello", 
+        name: " ",
         coordinates: {
           lon: null, lat: null
         }
@@ -34,12 +34,25 @@ class App extends React.Component{
   }
 
   componentDidMount(){
-    this.setLocation(this.state.location1.name,this.state.location2.name);
-    this.timerID = setInterval(() => {
-      this.tick()
-    },TICK_RATE);
+    try {
+      // Read localstorage for location here
+      const locationdata = JSON.parse(localStorage.getItem('locationdata'))
+      this.setState({
+        time: new Date(),
+        location1: locationdata.l1,
+        location2: locationdata.l2
+      })
+
+    } catch (err) {
+
+    } finally {
+      // this.setLocation(this.state.location1.name,this.state.location2.name);
+      this.timerID = setInterval(() => {
+        this.tick()
+      },TICK_RATE);
+    }
+
   }
-  
   componentWillUnmount(){
     clearInterval(this.timerID);
   }
@@ -53,6 +66,13 @@ class App extends React.Component{
   setLocation = async (a,b) => {
     let l1 = await this.getCoordinates(a);
     let l2 = await this.getCoordinates(b);
+    // Save location to localstorage
+    let locationdata = {
+      l1,
+      l2
+    }
+
+    localStorage.setItem('locationdata', JSON.stringify(locationdata))
     this.setState({
       time: new Date(),
       location1: l1,
@@ -60,14 +80,14 @@ class App extends React.Component{
     })
   }
 
-  getCoordinates(location){
-    return axios.get(
+  async getCoordinates(location){
+    return await axios.get(
       `https:api.digitransit.fi/geocoding/v1/search?text=${location}&size=1`)
       .then(res => {
         return {
           name: res.data.features[0].properties.name,
           lon: res.data.features[0].geometry.coordinates[0],
-          lat: res.data.features[0].geometry.coordinates[1]  
+          lat: res.data.features[0].geometry.coordinates[1]
         }
       })
   }
@@ -90,15 +110,15 @@ class App extends React.Component{
         <ApolloProvider client={client}>
           <div className="uk-padding uk-background-muted uk-container">
             <div
-              className="uk-flex" 
+              className="uk-flex"
               uk-grid="true"
               uk-height-match="target:.uk-card;row: false"
             >
               <Timetable
-                from={l1} 
+                from={l1}
                 to={l2}
               />
-              <Timetable 
+              <Timetable
                 from={l2}
                 to={l1}
               />
@@ -106,7 +126,7 @@ class App extends React.Component{
           </div>
         </ApolloProvider>
       </div>
-      
+
     );
   }
 }

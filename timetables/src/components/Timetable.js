@@ -75,7 +75,7 @@ export default function Timetable({from, to}){
   if (data.plan.itineraries.length === 0) {
     return (
       <div className="uk-width-1-2">
-        <h3>No routes found</h3>
+        <h3>No routes</h3>
       </div>
     );
   }
