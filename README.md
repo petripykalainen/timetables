@@ -6,6 +6,9 @@ Check route information two ways between set locations in Helsinki region
 
 Powered by Helsinki Regional Transport (HSL) [open data interface](https://www.hsl.fi/en/opendata).
 
+## Screenshot
+![](/screenshot.png)
+
 ### Featuring
 - [x] Using HSL open data interface.
 - [x] graphql query language
